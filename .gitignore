@@ -1,3 +1,29 @@
+# .gitignore
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Database files
+/instance/governors_bowl.db
+/instance/governors_bowl.sqbpro
+fantasy_league.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -35,6 +61,51 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
+
+# Logs
+logs/
+*.log
+
+# Compiled files
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Directories to ignore
+/gov_bowl_app/data/
+/data_processing/
+/gov_bowl_app/__pycache__
+/__pycache__
+
+# Files to ignore 
+directory_structure.txt
+scratch.ipynb
+scratch.py
+
+
+# IDE/Editor folders
+.vscode/
+.idea/
+
+# Operating system generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 # Unit test / coverage reports
 htmlcov/
@@ -118,15 +189,6 @@ celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
 
 # Spyder project settings
 .spyderproject

@@ -1,0 +1,21 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif; /* Specifies the font of the body text */
+    background-color: oldlace; /* Changes the background color of the body */
+    color: #333; /* Changes the color of the body text */
+    margin: 0; /* Removes the margin around the body */
+    padding: 0; /* Removes the padding inside the body */
+}
+
+h1 {
+    color: #007BFF; /* Changes the color of all h1 elements to a specific blue */
+    font-size: 2.5em; /* Makes the h1 font size 2.5 times the size of the normal text */
+    text-align: center; /* Aligns the h1 text in the center */
+}
+
+.table {
+    width: 100%; /* Sets the table to occupy the full width of its parent element */
+    border: 1px solid #dee2e6; /* Adds a border around the table */
+    border-collapse: collapse; /* Collapses the table borders into a single border */
+    margin: auto; /* Centers the table in its parent element */
+}
