@@ -1,0 +1,122 @@
+<!-- season_recap.html -->
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block title %}{{ year }} Season Recap{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Governor's Bowl</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" 
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Owners
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% for owner in owners %}
+                            <a class="dropdown-item" href="/owner/{{owner}}">{{owner}}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                <!-- Add more menu items as necessary -->
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<!-- UNIQUE PAGE CONTENT GOES HERE-->
+<!-- season_recap.html -->
+<!-- Purpose: Recap a given season for the whole league with Champ and Sacko, table of team records, 
+points for, against, superlatives etc. -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-18 col-sm-9 col-lg-12">
+            <h1>{{ year }} Season Recap</h1>
+        </div>
+    </div>
+    <!-- CHAMPION -->
+    <div class="row text-center">
+        <div class="col-xs-18 col-sm-9 col-lg-12">
+            <h2>CHAMPION</h2>
+            <h4>{{ superlatives_dict['champ']['team_name'] }} {{ superlatives_dict['champ']['reg_seas_record'] }}</h4>
+            <h6>{{ superlatives_dict['champ']['owner'] }}</h6>
+        </div>
+    </div>
+
+    <!-- SACKO -->
+    <div class="row text-center">
+        <div class="col-xs-18 col-sm-9 col-lg-12">
+            <h2>SACKO</h2>
+            <h4>{{ superlatives_dict['sacko']['team_name'] }} {{ superlatives_dict['sacko']['reg_seas_record'] }}</h4>
+            <h6>{{ superlatives_dict['sacko']['owner'] }}</h6>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-18 col-sm-9 col-lg-12">
+            <h2>Governor Results - {{ year }}</h2>
+            <div class="table-responsive">
+
+                <table class="table table-striped table-bordered text-center">
+                    <thead>
+                        {% if seas_recap_labels %}
+                            {% for label in seas_recap_labels %}
+                                <th>{{ label.title().replace("_", " ") }}</th>
+                            {% endfor %}
+                        {% else %}
+                            <p>Error: No labels present</p>
+                        {% endif %}
+                    </thead>
+                    <tbody>
+                        {% if seas_recap_data %}
+
+                            {% for owner_id, owner_data in seas_recap_data.items() %}
+                                {% if owner_data['team_name'] %}
+                                    <tr>
+                                        {% for stat_label, stat_value in owner_data.items() %}
+                                            <td>{{ stat_value }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p>Error... No data</p>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
+    
+
+<!-- Superlatives section -->
+
+<!-- For each year: -->
+    <!-- Champ -->
+    <!-- Sacko -->
+    <!-- Runner-Up -->
+    <!-- Best Record -->
+    <!-- Scoring Champ -->
+    <!-- Most Trades (Art of the Deal) -->
+    <!-- Most Acquisitions (Mover Shaker)-->
+    <!-- Most Budget Left - (Stingiest/Biggest Hoarder) -->
+
+
+    <!-- Weekly recap table. The user can select from weeks 1-16(or 17) and it will display that week's results -->
