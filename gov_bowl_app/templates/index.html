@@ -7,111 +7,54 @@
   <h1 class="text-center mt-5">Home of the Governor's Bowl Fantasy Football League</h1>
   <hr>
   <div class="row">
-    <div class="col-10 col-sm-8 col-lg-6">
+    <div class="col-xs-18 col-sm-9 col-lg-12">
       <h1>All Time Governor Statistics</h1>
-      <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Governor</th>
-                <th scope="col">Wins</th>
-                <th scope="col">Wins/Season</th>
-                <th scope="col">Losses</th>
-                <th scope="col">Losses/Season</th>
-                <th scope="col">Ties</th>
-                <th scope="col">Points For</th>
-                <th scope="col">Points For/Season</th>
-                <th scope="col">Points For/Week</th>
-                <th scope="col">Points Against</th>
-                <th scope="col">Points Against/Season</th>
-                <th scope="col">Points Against/Week</th>
-                <th scope="col">Acquisitions</th>
-                <th scope="col">Budget Spent</th>
-                <th scope="col">Trades</th>
-                <th scope="col">Playoff Seed/Season</th>
-                <th scope="col">Final Rank/Season</th>
-            </tr>
-        </thead>
-        <tbody>
-          {% if owner_stat_totals %}
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered text-center align-middle">
+          <thead>
+            {% if alltime_stat_labels %}
+              {% for label in alltime_stat_labels %}
+                <th>{{ label.title().replace("_", " ") }}</th>
+              {% endfor %}
+            {% endif %}
+          </thead>
+          <tbody>
+            {% if owner_stats_w_ranks %}
 
-            {% for owner_id, owner_dict in owner_stat_totals.items() %}
-              <tr>
-                {% for stat_label, stat in owner_dict.items() %}
-                
-                  <td>{{ stat }}</td>
-                {% endfor %}
-              </tr>
-            {% endfor %}
-          {% else %}
-            <td colspan="16">No stats available</td>
-          {% endif %}
-        </tbody>
-      </table>
+              {% for owner_id, owner_dict in owner_stats_w_ranks.items() %}
+                <tr>
+                  {% for stat_label, stat_rank in owner_dict.items() %}
+                  
+                    <td>{{ stat_rank }}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            {% else %}
+              <td colspan="16">No stats available</td>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-  <!-- Stat rankings. Eventually hope to merge this with stat totals table above -->
+<!-- 
   <div class="row">
-    <div class="col-10 col-sm-8 col-lg-6">
-      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">All Time Statistical Rankings</h1>
-      <p>Will eventually merge this with the All Time Governor Statistics table above </p>
-      <hr>
-      <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Governor</th>
-                <th scope="col">Wins</th>
-                <th scope="col">Wins/Season</th>
-                <th scope="col">Losses</th>
-                <th scope="col">Losses/Season</th>
-                <th scope="col">Ties</th>
-                <th scope="col">Points For</th>
-                <th scope="col">Points For/Season</th>
-                <th scope="col">Points For/Week</th>
-                <th scope="col">Points Against</th>
-                <th scope="col">Points Against/Season</th>
-                <th scope="col">Points Against/Week</th>
-                <th scope="col">Acquisitions</th>
-                <th scope="col">Budget Spent</th>
-                <th scope="col">Trades</th>
-                <th scope="col">Playoff Seed/Season</th>
-                <th scope="col">Final Rank/Season</th>
-            </tr>
-        </thead>
-        <tbody>
-          {% if owner_stat_ranks %}
-
-            {% for owner_id, owner_rank_dict in owner_stat_ranks.items() %}
-              <tr>
-                {% for stat_label, stat_rank in owner_rank_dict.items() %}
-                
-                  <td>{{ stat_rank }}</td>
-                {% endfor %}
-              </tr>
-            {% endfor %}
-          {% else %}
-            <td colspan="16">No stats available</td>
-          {% endif %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row">
-      <div class="col-10 col-sm-8 col-lg-6">
+      <div class="col-xs-9 col-sm-4.5 col-lg-6">
           <div id="wins_chart"></div>
       </div>
-      <div class="col-10 col-sm-8 col-lg-6">
+      <div class="col-xs-9 col-sm-4.5 col-lg-6">
           <div id="total_points_for_chart"></div>
       </div>
   </div>
   <div class="row">
-      <div class="col-10 col-sm-8 col-lg-6">
+      <div class="col-xs-9 col-sm-4.5 col-lg-6">
           <div id="total_points_against_chart"></div>
       </div>
-      <div class="col-10 col-sm-8 col-lg-6">
+      <div class="col-xs-9 col-sm-4.5 col-lg-6">
           <div id="weekly_pf_chart"></div> 
       </div>
   </div>
-</div>
+</div> -->
 {% endblock %}
 
 {% block scripts %}

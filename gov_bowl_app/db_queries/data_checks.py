@@ -3,7 +3,7 @@
 # sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 # from gov_bowl_app import create_app, db
-# from gov_bowl_app.models.owner_stat_models import Owner, OwnerStatTotal
+# from gov_bowl_app.models.new_owner_stat_models import Owner, OwnerStatTotal
 # from gov_bowl_app.db_queries.owners_table import get_owner_name
 
 # app = create_app()
@@ -38,19 +38,19 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 from gov_bowl_app import create_app, db
-from gov_bowl_app.models.owner_stat_models import Owner, OwnerStatTotal
+from gov_bowl_app.models.owner_stat_models import OwnerT, OwnerStatTotalT
 from gov_bowl_app.db_queries.owners_table import get_owner_name
 
 app = create_app()
 
 with app.app_context():
 
-    column_names = [column.name for column in OwnerStatTotal.__table__.columns]
+    column_names = [column.name for column in OwnerStatTotalT.__table__.columns]
     owner_all_time_stats = {}
     for column in column_names [1:]:
         owner_all_time_stats[column] = {}
     # Query all owners
-    all_time_stats = OwnerStatTotal.query.all()
+    all_time_stats = OwnerStatTotalT.query.all()
     for row in all_time_stats:
         owner_name = get_owner_name(row.owner_id)
 

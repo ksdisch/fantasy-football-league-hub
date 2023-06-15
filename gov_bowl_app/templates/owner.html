@@ -3,96 +3,79 @@
 
 {% block content %}
 <!-- Your HTML content here -->
-<div class="container">
+<div class="container-fluid">
     <h1>{{ owner_name_clean }}</h1>
-</div>
 
-<!-- Display their all time stats here -->
-<h1>All Time Stats</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">Wins</th>
-            <th scope="col">Wins/Season</th>
-            <th scope="col">Losses</th>
-            <th scope="col">Losses/Season</th>
-            <th scope="col">Ties</th>
-            <th scope="col">Points For</th>
-            <th scope="col">Points For/Season</th>
-            <th scope="col">Points For/Week</th>
-            <th scope="col">Points Against</th>
-            <th scope="col">Points Against/Season</th>
-            <th scope="col">Points Against/Week</th>
-            <th scope="col">Acquisitions</th>
-            <th scope="col">Budget Spent</th>
-            <th scope="col">Trades</th>
-            <th scope="col">Playoff Seed/Season</th>
-            <th scope="col">Final Rank/Season</th>
-            <!-- Add more headers as needed -->
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><strong>Total</strong></td>
-            {% if stat_totals %}
-                {% for stat in stat_totals %}
-                    <td>{{ stat }}</td>
-                {% endfor %}
-            {% else %}
-                <td colspan="16">No stats available for this owner.</td>
-            {% endif %}
-        </tr>
-        <tr>
-            <td><strong>League Rank</strong></td>
-        </tr>
-    </tbody>
-</table>
 
-<h1>Yearly Results</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th><strong>Year</strong></th>
-            <th><strong>Wins</strong></th>
-            <th><strong>Losses</strong></th>
-            <th><strong>Ties</strong></th>
-            <th><strong>Points For</strong></th>
-            <th><strong>Points Against</strong></th>
-            <th><Strong>Acquisitions</Strong></th>
-            <th><strong>Budget Spent</strong></th>
-            <th><strong>Trades</strong></th>
-            <th><strong>Playoff Seed</strong></th>
-            <th><strong>Final Rank</strong></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for year, year_data in yearly_stats.items() %}
-            <tr>
-                <td>{{ year }}</td>
-                {% for key, value in year_data.items() %}
-                    <td>{{ value }}</td>
-                {% endfor %}
-            </tr>
+    <!-- Display their all time stats here -->
+    <h1>All Time Stats</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered text-center align-middle">
+                <thead>
+                {% if alltime_stat_labels %}
+                    {% for label in alltime_stat_labels %}
+                    <th>{{ label.title().replace("_", " ") }}</th>
+                    {% endfor %}
+                {% endif %}
+                </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    {% if owner_alltime_totals %}
+                        {% for stat_label, stat_value in owner_alltime_totals.items() %}
+                            <td>{{ stat_value }}</td>
+                        {% endfor %}
+                    {% else %}
+                        <td colspan="16">No stats available for this owner.</td>
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h1>Yearly Results</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered text-center align-middle">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    {% for label in stat_labels %}
+                        <th>{{ label.title().replace("_", " ") }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if owner_yearly_stats %}
+                    {% for year, year_data in owner_yearly_stats.items() %}
+                        <tr>
+                            <td>{{ year }}</td>
+                            {% for stat_label, stat_value in year_data.items() %}
+                                <td>{{ stat_value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <p>No data for this year for this owner...</p>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- In the future: Put a form in that allows them to look at stats by year instead (totals from that year, their results by week form that year, etc.)-->
+
+
+    <div id="owner_weekly_pf_chart"></div>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select year
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for year in years %}
+            <a class="dropdown-item" href="/owner/{{ owner_name }}/{{ year }}">{{ year }}</a>
         {% endfor %}
-    </tbody>
-</table>
-
-
-<!-- In the future: Put a form in that allows them to look at stats by year instead (totals from that year, their results by week form that year, etc.)-->
-
-
-<div id="owner_weekly_pf_chart"></div>
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Select year
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      {% for year in years %}
-        <a class="dropdown-item" href="/owner/{{ owner_name }}/{{ year }}">{{ year }}</a>
-      {% endfor %}
+        </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block scripts %}

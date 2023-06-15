@@ -10,7 +10,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     bootstrap = Bootstrap(app)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./governors_bowl.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./test.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     db.init_app(app)

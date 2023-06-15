@@ -1,4 +1,3 @@
-<!-- layout.html -->
 {% extends "bootstrap/base.html" %}
 
 {% block head %}
@@ -20,6 +19,17 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             {% for owner in owners %}
               <a class="dropdown-item" href="/owner/{{owner}}">{{owner}}</a>
+            {% endfor %}
+          </div>
+        </li>
+        <!-- Adding Yearly Recap Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="SeasonRecapsDropdowndown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Season Recaps
+          </a>
+          <div class="dropdown-menu" aria-labelledby="SeasonRecapsDropdowndown">
+            {% for year in years %}
+              <a class="dropdown-item" href="/season_recap/{{year}}">{{year}}</a>
             {% endfor %}
           </div>
         </li>

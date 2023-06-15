@@ -3,13 +3,13 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 from gov_bowl_app import create_app, db
-from gov_bowl_app.models.owner_stat_models import Owner, OwnerStatTotal, AllTimeStatRank
-from gov_bowl_app.db_queries.owners_table import get_owners_list, get_owner_name
+from gov_bowl_app.models.owner_stat_models import OwnerT, OwnerStatTotalT, AllTimeStatRankT
+from gov_bowl_app.db_queries.owners_table import fetch_owners_list, get_owner_name
 
 def fetch_owner_stat_ranks():
-    owner_ranks_rows = db.session.query(AllTimeStatRank).all()
-    stat_labels = [column.name for column in OwnerStatTotal.__table__.columns]
-    owners = get_owners_list
+    owner_ranks_rows = db.session.query(AllTimeStatRankT).all()
+    stat_labels = [column.name for column in OwnerStatTotalT.__table__.columns]
+    owners = fetch_owners_list
     owner_stat_ranks_dict = {}
     for i in range(13):
         try:
